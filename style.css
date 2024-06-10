@@ -48,15 +48,13 @@ body {
 	color: var(--black);
 	margin: 2rem 0;
 	text-wrap: wrap;
-	@media (width >= 768px) {
-		margin: 5rem 0;
-	}
 }
 .joke-box button {
 	background-color: var(--button-bg-color);
 	border-radius: 10px;
 	border: none;
 	color: var(--white);
+	cursor: pointer;
 	font-family: inherit;
 	font-size: 1rem;
 	padding: 1rem 3rem;
@@ -64,6 +62,16 @@ body {
 	&:focus-visible {
 		outline: none;
 	}
+	&:hover {
+		opacity: .8;
+	}
+}
+.joke-box .joke-score-container {
+	margin-bottom: 2rem;
+}
+.joke-box .joke-score-container .joke-score {
+	cursor: pointer;
+	font-size: 2rem;
 	&:hover {
 		opacity: .8;
 	}
