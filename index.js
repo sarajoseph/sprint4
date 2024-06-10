@@ -17,10 +17,13 @@ const options = {
 const errorMessage = 'Ha habido un error';
 const elJoke = document.getElementById('joke');
 const btnJoke = document.getElementById('btnJoke');
+;
+// Get joke from API
 const getData = (api, options) => __awaiter(void 0, void 0, void 0, function* () {
     const response = yield fetch(api, options).then(response => response.json());
     return response;
 });
+// Show next joke 
 const processData = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const data = yield getData(api, options);
@@ -39,7 +42,39 @@ const processData = () => __awaiter(void 0, void 0, void 0, function* () {
 });
 processData();
 btnJoke === null || btnJoke === void 0 ? void 0 : btnJoke.addEventListener('click', function (e) {
-    // Llamar a la API, mostrar siguiente chiste y también mostrarlo por consola
     e.preventDefault();
     processData();
+});
+let reportJokes = [];
+// Set the puntuation of the joke, if the joke was in the array set the score and date
+const setReportJokes = (score) => {
+    const joke = elJoke.innerHTML;
+    const date = new Date().toISOString();
+    const found = reportJokes.find((e) => {
+        if (e.joke === joke) {
+            e.score = score;
+            e.date = date;
+            return true;
+        }
+        return false;
+    });
+    if (!found) {
+        reportJokes.push({ joke: joke, score: score, date: date });
+    }
+    console.log(reportJokes);
+};
+const btnJokeScore1 = document.getElementById('btnJokeScore1');
+const btnJokeScore2 = document.getElementById('btnJokeScore2');
+const btnJokeScore3 = document.getElementById('btnJokeScore3');
+btnJokeScore1 === null || btnJokeScore1 === void 0 ? void 0 : btnJokeScore1.addEventListener('click', function (e) {
+    e.preventDefault();
+    setReportJokes(1);
+});
+btnJokeScore2 === null || btnJokeScore2 === void 0 ? void 0 : btnJokeScore2.addEventListener('click', function (e) {
+    e.preventDefault();
+    setReportJokes(2);
+});
+btnJokeScore3 === null || btnJokeScore3 === void 0 ? void 0 : btnJokeScore3.addEventListener('click', function (e) {
+    e.preventDefault();
+    setReportJokes(3);
 });
