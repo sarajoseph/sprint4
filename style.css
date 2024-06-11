@@ -16,6 +16,25 @@ body {
 	height: 100vh;
 }
 
+.weather-box {
+	display: flex;
+	flex-direction: row;
+	.temp-container {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		p {
+			margin: 0;
+			&.city {
+				font-size: 1rem;
+			}
+			&.temp {
+				font-size: 1.5rem;
+			}
+		}
+	}
+}
+
 .container {
 	align-items: center;
 	display: flex;

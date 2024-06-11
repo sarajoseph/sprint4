@@ -8,8 +8,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const api = 'https://icanhazdadjoke.com?mode=json';
-const options = {
+const jokesAPI = 'https://icanhazdadjoke.com?mode=json';
+const jokesOptions = {
     headers: {
         'Accept': 'application/json'
     },
@@ -26,7 +26,7 @@ const getData = (api, options) => __awaiter(void 0, void 0, void 0, function* ()
 // Show next joke 
 const processData = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const data = yield getData(api, options);
+        const data = yield getData(jokesAPI, jokesOptions);
         if (data.status === 200 && typeof data.joke === 'string') {
             const jokeStr = data.joke;
             console.log(jokeStr);
