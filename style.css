@@ -9,10 +9,12 @@
 body {
 	background-position: center;
 	background-repeat: no-repeat;
-	background-size: contain;
+	background-size: cover;
 	font-family: 'Roboto', sans-serif;
 	font-size: 15px;
-	height: 100vh;
+	@media (width >= 1024px) {
+		background-size: 70%;
+	}
 }
 .magicpattern1 {
   background-image: url("data:image/svg+xml;utf8,%3Csvg viewBox=%220 0 1000 1000%22 xmlns=%22http:%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cdefs%3E%3CclipPath id=%22a%22%3E%3Cpath fill=%22currentColor%22 d=%22M884 671Q773 842 592 866.5t-303-91Q167 660 182.5 507.5t119.5-285Q406 90 558 163t294.5 205Q995 500 884 671Z%22%2F%3E%3C%2FclipPath%3E%3C%2Fdefs%3E%3Cg clip-path=%22url(%23a)%22%3E%3Cpath fill=%22%239071bb%22 d=%22M884 671Q773 842 592 866.5t-303-91Q167 660 182.5 507.5t119.5-285Q406 90 558 163t294.5 205Q995 500 884 671Z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
@@ -29,9 +31,6 @@ body {
 .magicpattern5 {
   background-image: url("data:image/svg+xml;utf8,%3Csvg viewBox=%220 0 1000 1000%22 xmlns=%22http:%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cdefs%3E%3CclipPath id=%22a%22%3E%3Cpath fill=%22currentColor%22 d=%22M826 636.5Q717 773 553 879t-249-69q-85-175-97.5-316T312 272.5Q430 192 595.5 182T848 336q87 164-22 300.5Z%22%2F%3E%3C%2FclipPath%3E%3C%2Fdefs%3E%3Cg clip-path=%22url(%23a)%22%3E%3Cpath fill=%22%239071bb%22 d=%22M826 636.5Q717 773 553 879t-249-69q-85-175-97.5-316T312 272.5Q430 192 595.5 182T848 336q87 164-22 300.5Z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
 }
-
-
-
 
 .weather-box {
 	display: flex;
@@ -68,12 +67,14 @@ body {
 	flex-direction: column;
 	font-size: 1rem;
 	justify-content: center;
-	max-width: 80%;
-	padding: 2rem;
+	max-width: 100%;
+	padding: 1rem;
 	width: 100%;
-	@media (width >= 768px) {
+	@media (width >= 425px) {
+		max-width: 70%;
+	}
+	@media (width >= 1024px) {
 		max-width: 30%;
-		padding: 5rem;
 	}
 }
 .joke-box h1{
@@ -84,6 +85,13 @@ body {
 	color: var(--white);
 	margin: 2rem 0;
 	text-wrap: wrap;
+	text-align: center;
+	@media (width >= 425px) {
+		max-width: 70%;
+	}
+	@media (width >= 1024px) {
+		max-width: 100%;
+	}
 }
 .joke-box button {
 	background-color: var(--button-bg-color);
