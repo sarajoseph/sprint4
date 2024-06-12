@@ -4,14 +4,15 @@ const jokesOptions = {
 		'Accept': 'application/json'
 	},
 };
+const chucknorrisAPI = 'https://api.chucknorris.io/jokes/random';
 const errorMessage: string = 'Ha habido un error';
 const elJoke: HTMLElement = document.getElementById('joke') as HTMLElement;
 const btnJoke: HTMLElement = document.getElementById('btnJoke') as HTMLElement;
+let nextJokeClicks = 0;
 
 interface Data {
 	id: string,
-	joke: string,
-	status: number
+	joke: string
 }
 
 interface ReportJokes {
@@ -22,15 +23,23 @@ interface ReportJokes {
 
 // Get joke from API
 const getData = async (api: string, options: { headers: { 'Accept': string } }): Promise<Data> => {
-	const response: Data = await fetch(api, options).then(response => response.json());
+	const fetchResponse = await fetch(api, options).then(response => response.json());
+	const response: Data = {
+		id: fetchResponse.id,
+		joke: fetchResponse.joke || fetchResponse.value
+	}
 	return response;
 }
 
 // Show next joke 
 const processData = async (): Promise<void> => {
 	try {
-		const data: Data = await getData(jokesAPI, jokesOptions);
-		if(data.status === 200 && typeof data.joke === 'string') {
+		let API_URL: string = jokesAPI;
+		if (nextJokeClicks % 2) {
+			API_URL = chucknorrisAPI;
+		}
+		const data: Data = await getData(API_URL, jokesOptions);
+		if (typeof data.joke === 'string') {
 			const jokeStr: string = data.joke;
 			console.log(jokeStr);
 			elJoke.innerHTML = '" '+jokeStr+' "';
@@ -46,6 +55,7 @@ processData();
 
 btnJoke?.addEventListener('click', function(e){
 	e.preventDefault();
+	nextJokeClicks++;
 	processData();
 });
 
