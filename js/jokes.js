@@ -14,20 +14,30 @@ const jokesOptions = {
         'Accept': 'application/json'
     },
 };
+const chucknorrisAPI = 'https://api.chucknorris.io/jokes/random';
 const errorMessage = 'Ha habido un error';
 const elJoke = document.getElementById('joke');
 const btnJoke = document.getElementById('btnJoke');
+let nextJokeClicks = 0;
 ;
 // Get joke from API
 const getData = (api, options) => __awaiter(void 0, void 0, void 0, function* () {
-    const response = yield fetch(api, options).then(response => response.json());
+    const fetchResponse = yield fetch(api, options).then(response => response.json());
+    const response = {
+        id: fetchResponse.id,
+        joke: fetchResponse.joke || fetchResponse.value
+    };
     return response;
 });
 // Show next joke 
 const processData = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const data = yield getData(jokesAPI, jokesOptions);
-        if (data.status === 200 && typeof data.joke === 'string') {
+        let API_URL = jokesAPI;
+        if (nextJokeClicks % 2) {
+            API_URL = chucknorrisAPI;
+        }
+        const data = yield getData(API_URL, jokesOptions);
+        if (typeof data.joke === 'string') {
             const jokeStr = data.joke;
             console.log(jokeStr);
             elJoke.innerHTML = '" ' + jokeStr + ' "';
@@ -43,6 +53,7 @@ const processData = () => __awaiter(void 0, void 0, void 0, function* () {
 processData();
 btnJoke === null || btnJoke === void 0 ? void 0 : btnJoke.addEventListener('click', function (e) {
     e.preventDefault();
+    nextJokeClicks++;
     processData();
 });
 let reportJokes = [];
