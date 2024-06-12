@@ -38,6 +38,7 @@ const processData = () => __awaiter(void 0, void 0, void 0, function* () {
         }
         const data = yield getData(API_URL, jokesOptions);
         if (typeof data.joke === 'string') {
+            setBodyClass();
             const jokeStr = data.joke;
             console.log(jokeStr);
             elJoke.innerHTML = '" ' + jokeStr + ' "';
@@ -50,6 +51,20 @@ const processData = () => __awaiter(void 0, void 0, void 0, function* () {
         console.log('Error ' + error);
     }
 });
+// Change shape background image
+const setBodyClass = () => {
+    const body = document.getElementsByTagName('body')[0];
+    const currentClass = body.className;
+    const lastChar = parseInt(currentClass.substring(currentClass.length - 1));
+    let bodyClass = currentClass.substring(0, currentClass.length - 1);
+    if (lastChar === 5) {
+        bodyClass += '1';
+    }
+    else {
+        bodyClass += lastChar + 1;
+    }
+    body.className = bodyClass;
+};
 processData();
 btnJoke === null || btnJoke === void 0 ? void 0 : btnJoke.addEventListener('click', function (e) {
     e.preventDefault();

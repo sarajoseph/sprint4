@@ -4,7 +4,7 @@ const jokesOptions = {
 		'Accept': 'application/json'
 	},
 };
-const chucknorrisAPI = 'https://api.chucknorris.io/jokes/random';
+const chucknorrisAPI: string = 'https://api.chucknorris.io/jokes/random';
 const errorMessage: string = 'Ha habido un error';
 const elJoke: HTMLElement = document.getElementById('joke') as HTMLElement;
 const btnJoke: HTMLElement = document.getElementById('btnJoke') as HTMLElement;
@@ -40,6 +40,7 @@ const processData = async (): Promise<void> => {
 		}
 		const data: Data = await getData(API_URL, jokesOptions);
 		if (typeof data.joke === 'string') {
+			setBodyClass();
 			const jokeStr: string = data.joke;
 			console.log(jokeStr);
 			elJoke.innerHTML = '" '+jokeStr+' "';
@@ -49,6 +50,20 @@ const processData = async (): Promise<void> => {
 	} catch (error) {
 		console.log('Error '+error);
 	}
+}
+
+// Change shape background image
+const setBodyClass = (): void => {
+	const body: HTMLElement = document.getElementsByTagName('body')[0] as HTMLElement;
+	const currentClass: string = body.className;
+	const lastChar: number = parseInt(currentClass.substring(currentClass.length-1));
+	let bodyClass: string = currentClass.substring(0, currentClass.length-1);
+	if (lastChar === 5) {
+		bodyClass += '1';
+	} else {
+		bodyClass += lastChar+1;
+	}
+	body.className = bodyClass;
 }
 
 processData();
