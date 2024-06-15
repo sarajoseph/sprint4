@@ -9,13 +9,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 export default class WeatherController {
     constructor() {
-        this.getWeatherData = (api, key) => __awaiter(this, void 0, void 0, function* () {
-            const response = yield fetch(api + '?q=Barcelona&appid=' + key).then(response => response.json());
+        this.getWeatherData = () => __awaiter(this, void 0, void 0, function* () {
+            const response = yield fetch(this.weatherAPI + '?q=Barcelona&appid=' + this.API_KEY).then(response => response.json());
             return response;
         });
         this.processWeatherData = () => __awaiter(this, void 0, void 0, function* () {
             try {
-                const weatherData = yield this.getWeatherData(this.weatherAPI, this.API_KEY);
+                const weatherData = yield this.getWeatherData();
                 if (weatherData && weatherData.cod === 200) {
                     const city = weatherData.name;
                     const temp = Math.round(weatherData.main.temp - this.diffKelvin);
@@ -25,7 +25,7 @@ export default class WeatherController {
                     strHTML += '<p class="city">' + city + '</p>';
                     strHTML += '<p class="temp">' + temp + 'ºC</p>';
                     strHTML += '</div>';
-                    this.weatherBox.innerHTML = strHTML;
+                    document.getElementById('weatherBox').innerHTML = strHTML;
                 }
             }
             catch (error) {
@@ -35,7 +35,6 @@ export default class WeatherController {
         this.weatherAPI = 'https://api.openweathermap.org/data/2.5/weather';
         this.API_KEY = 'ffe6804c8a87c4ef8e83eb850ea4fd5d';
         this.diffKelvin = 273.15;
-        this.weatherBox = document.getElementById('weatherBox');
     }
     init() {
         this.processWeatherData();
